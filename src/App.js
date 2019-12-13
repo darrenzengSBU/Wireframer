@@ -1,25 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Navbar from './components/navbar/Navbar'
+import HomeScreen from './components/home_screen/HomeScreen'
+import WireframeScreen from './components/wireframe_screen/WireframeScreen'
+import LoginScreen from './components/auth/LoginScreen'
+import RegisterScreen from './components/auth/RegisterScreen'
+import DatabaseTester from './test/DatabaseTester'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Navbar/>
+        <Switch>
+          <Route exact path='/' component={HomeScreen} />
+          <Route path='/databaseTester' component={DatabaseTester} />
+          <Route path='/wireframe/:id' component={WireframeScreen} />
+          <Route path='/login' component={LoginScreen} />
+          <Route path='/register' component={RegisterScreen} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
