@@ -11,3 +11,30 @@ export const createWireframe = (wireframe) => {
         })
     }
 }
+
+export const updateDate = (listId) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        //console.log(listId)
+        const firestore = getFirestore();
+        firestore.collection('wireframes').doc(listId).update({ timeStamp: new Date() })
+    }
+}
+
+export const changeNameOwner = (wireframeId, state, targetId) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        //console.log(state, targetId)
+        const firestore = getFirestore();
+        if (targetId === 'name')
+            firestore.collection('wireframes').doc(wireframeId).update({ name: state.name })
+        else
+            firestore.collection('wireframes').doc(wireframeId).update({ owner: state.owner })
+    }
+}
+
+export const deleteWireframe = (wireframeId) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        //console.log(listId)
+        const firestore = getFirestore();
+        firestore.collection('wireframes').doc(wireframeId).delete();
+    }
+}
