@@ -10,12 +10,12 @@ export class Control extends Component {
     }
 
     componentDidUpdate() {
-        console.log(this.state)
+        //console.log(this.state)
     }
 
     render() {
         const { control } = this.props
-        console.log(control, control.type)
+        // console.log(this.props)
         if (control.type === 'container') {
             return (
                 <Rnd
@@ -25,6 +25,7 @@ export class Control extends Component {
                         width: control.width,
                         height: control.height,
                     }}
+                    onClick={this.props.onSelect.bind(this, this.props.index)}
                     onDragStop={(e, d) => { this.setState({ x: d.x, y: d.y }) }}
                     onResizeStop={(e, direction, ref, delta, position) => {
                         this.setState({
@@ -47,6 +48,7 @@ export class Control extends Component {
                         width: control.width,
                         height: control.height,
                     }}
+                    onClick={this.props.onSelect.bind(this, this.props.index)}
                     onDragStop={(e, d) => { this.setState({ x: d.x, y: d.y }) }}
                     onResizeStop={(e, direction, ref, delta, position) => {
                         this.setState({
@@ -71,6 +73,7 @@ export class Control extends Component {
                         width: control.width,
                         height: control.height,
                     }}
+                    onClick={this.props.onSelect.bind(this, this.props.index)}
                     onDragStop={(e, d) => { this.setState({ x: d.x, y: d.y }) }}
                     onResizeStop={(e, direction, ref, delta, position) => {
                         this.setState({
@@ -93,6 +96,7 @@ export class Control extends Component {
                         width: control.width,
                         height: control.height,
                     }}
+                    onClick={this.props.onSelect.bind(this, this.props.index)}
                     onDragStop={(e, d) => { this.setState({ x: d.x, y: d.y }) }}
                     onResizeStop={(e, direction, ref, delta, position) => {
                         this.setState({
@@ -116,6 +120,7 @@ export class Control extends Component {
                     width: control.width,
                     height: control.height,
                 }}
+                onClick={this.props.onSelect.bind(this, this.props.index)}
                 onDragStop={(e, d) => { this.setState({ x: d.x, y: d.y }) }}
                 onResizeStop={(e, direction, ref, delta, position) => {
                     this.setState({
@@ -137,7 +142,8 @@ const containerStyle = {
     textAlign: 'center',
     alignItems: 'center',
     height: '100%',
-    width: '100%'
+    width: '100%',
+    pointerEvents: 'none'
 }
 
 const rndStyle = {
@@ -148,7 +154,8 @@ const rndStyle = {
 const controlStyle = {
     height: '100%',
     width: '100%',
-    backgroundColor: 'navyblue'
+    backgroundColor: 'navyblue',
+    pointerEvents: 'none'
 }
 
 export default Control

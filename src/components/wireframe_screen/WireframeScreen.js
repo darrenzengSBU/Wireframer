@@ -5,7 +5,8 @@ import { updateDate, changeNameOwner, deleteWireframe } from '../../store/action
 
 import { Modal, Button } from 'react-materialize';
 import Control from './Control'
-import Draggable from 'react-draggable'
+import ControlProperties from './ControlProperties'
+import keydown from 'react-keydown'
 
 export class WireframeScreen extends Component {
     state = {
@@ -16,6 +17,7 @@ export class WireframeScreen extends Component {
         tempWidth: 500,
         tempHeight: 400,
         scale: 1,
+        selectedControl: -1,
         controls: []
     }
 
@@ -32,8 +34,36 @@ export class WireframeScreen extends Component {
                 tempWidth: this.props.wireframe.width,
                 tempHeight: this.props.wireframe.height
             }, () => {
-                console.log(this.state)
+                //console.log(this.state)
             })
+        }
+        document.addEventListener("keydown", this.escFunction.bind(this), false);
+    }
+
+    componentWillUnmount(){
+        document.removeEventListener("keydown", this.escFunction, false);
+      }
+
+    escFunction(event) {
+        if(event.keyCode === 27) {
+           console.log('esc pressed')
+          }
+        if(event.keyCode === 46 ) {
+            console.log('delete pressed', this.state, this.state.selectedControl)
+            if(this.state.selectedControl) {
+                const controls = this.state.controls
+                const index = this.state.selectedControl
+                //console.log(controls, index)
+                if(index>=0) {
+                    controls.splice(index,1)
+                    this.rekey(controls)
+                    //console.log(controls)
+                }
+                this.setState({
+                    controls: controls,
+                    selectControl: -1
+                })
+            }
         }
     }
 
@@ -84,8 +114,8 @@ export class WireframeScreen extends Component {
     }
 
     rekey = (array) => {
-        for (let i=0; i<array.length; i++){
-            array[i].key=i;
+        for (let i = 0; i < array.length; i++) {
+            array[i].key = i;
         }
     }
 
@@ -106,23 +136,34 @@ export class WireframeScreen extends Component {
         }
         controls.push(newContainer);
         this.rekey(controls)
-        this.setState({controls: controls})
+        this.setState({ controls: controls })
+    }
+
+    selectControl(index) {
+        this.setState({ selectedControl: index })
+        console.log('selected')
+    }
+
+    deselectControl() {
+        this.setState({ selectedControl: -1 })
+        console.log('deselected')
     }
 
     render() {
         // const { auth, wireframe } = this.props;
         const auth = this.props.auth;
         const wireframe = this.props.wireframe;
-        const controls = this.state.controls
+        const controls = this.state.controls;
+        const control = controls[this.state.selectedControl]
 
         const containerStyle = {
             border: '1px solid',
-            height: '500px',
+            height: '600px',
         }
 
         const wireframeContainerStyle = {
             border: '1px solid',
-            height: '500px',
+            height: '600px',
             overflow: 'scroll'
         }
 
@@ -142,7 +183,7 @@ export class WireframeScreen extends Component {
         if (!wireframe)
             return <Redirect to='/' />
         return (
-            <div className="white">
+            <div className="white" onKeyDown={this.handleKeyDown}>
                 <h5 className="grey-text text-darken-3">Wireframe</h5>
                 <div className="right-align container">
                     <a className="blue lighten-2 waves-effect waves-light btn modal-trigger" href="#modal1">
@@ -196,13 +237,18 @@ export class WireframeScreen extends Component {
                         <ul><Button id="textfield" onClick={this.addControl}>Textfield</Button></ul>
                     </div>
                     <div className="col s6 controls" style={wireframeContainerStyle}>
-                        <div className="container" style={wireframeStyle}>
+                        <div className="container" onClick={this.deselectControl.bind(this)} style={wireframeStyle}>
                             {controls && controls.map(control => (
-                                <Control control={control} key={control.key} />
+                                <div onClick={e => e.stopPropagation()} key={control.key}>
+                                    <Control control={control} onSelect={(index) => this.selectControl(index)} index={control.key} />
+                                </div>
+
                             ))}
                         </div>
                     </div>
-                    <div className="col s3 properties" style={containerStyle}>Properties</div>
+                    <div className="col s3 properties" style={containerStyle}>
+                        <ControlProperties control={control} />
+                    </div>
                 </div>
             </div>
         )
