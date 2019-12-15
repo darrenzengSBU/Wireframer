@@ -2,169 +2,192 @@
     "todoLists": [
         {
             "key": 0,
-            "name": "Things I am Never Gonna Do",
-            "owner": "Rick Astley",
-            "items": [
+            "name": "Cool App",
+            "user": "Josh",
+            "width": 500,
+            "height": 400,
+            "controls": [
                 {
                     "key": 0,
-                    "description": "Give You Up",
-                    "due_date": "2019-09-30",
-                    "assigned_to": "Rick",
-                    "completed": true
+                    "type": "container",
+                    "width": 100,
+                    "height": 50,
+                    "x": 5,
+                    "y": 0,
+                    "text_font_size": null,
+                    "background": "#d6d6d6",
+                    "bordercolor": "#000000"
                 },
                 {
                     "key": 1,
-                    "description": "Say Goodbye",
-                    "due_date": "2019-10-15",
-                    "assigned_to": "Rick",
-                    "completed": false
+                    "type": "button",
+                    "width": 100,
+                    "height": 50,
+                    "x": 100,
+                    "y": 100,
+                    "text": "click me",
+                    "text_font_size": 12,
+                    "background": "#d6d6d6",
+                    "bordercolor": "#000000"
                 },
                 {
                     "key": 2,
-                    "description": "Make You Cry",
-                    "due_date": "2019-12-30",
-                    "assigned_to": "Bob",
-                    "completed": false
+                    "type": "label",
+                    "width": 200,
+                    "height": 100,
+                    "x": 0,
+                    "y": 0,
+                    "text": "login",
+                    "text_font_size": 15,
+                    "background": "#d6d6d6",
+                    "bordercolor": "#000000"
                 }
             ]
         },
         {
             "key": 1,
-            "name": "House Repairs",
-            "owner": "Bob Vila",
-            "items": [
+            "name": "Another App",
+            "user": "Josh",
+            "width": 500,
+            "height": 400,
+            "controls": [
                 {
                     "key": 0,
-                    "description": "Repair Leaky Kitchen Sink",
-                    "due_date": "2019-07-11",
-                    "assigned_to": "Rick",
-                    "completed": true
+                    "type": "button",
+                    "width": 100,
+                    "height": 50,
+                    "x": 0,
+                    "y": 0,
+                    "text": "hello",
+                    "text_font_size": 12,
+                    "background": "#d6d6d6",
+                    "bordercolor": "#000000"
                 },
                 {
                     "key": 1,
-                    "description": "Fix Leak in Roof",
-                    "due_date": "2019-10-15",
-                    "assigned_to": "Jane",
-                    "completed": false
+                    "type": "button",
+                    "width": 100,
+                    "height": 50,
+                    "x": 0,
+                    "y": 0,
+                    "text": "just here",
+                    "text_font_size": 19,
+                    "background": "#d3d3d3",
+                    "bordercolor": "#d6d6d6"
                 },
                 {
                     "key": 2,
-                    "description": "Paint Interior",
-                    "due_date": "2019-11-11",
-                    "assigned_to": "Joe",
-                    "completed": false
+                    "type": "container",
+                    "width": 100,
+                    "height": 50,
+                    "x": 0,
+                    "y": 0,
+                    "text": null,
+                    "text_font_size": null,
+                    "background": "#d3d3d3",
+                    "bordercolor": "#d6d6d6"
                 },
                 {
                     "key": 3,
-                    "description": "Plant Flowers",
-                    "due_date": "2019-08-17",
-                    "assigned_to": "Ryan",
-                    "completed": true
-                },
-                {
-                    "key": 4,
-                    "description": "Repair Front Door",
-                    "due_date": "2019-10-31",
-                    "assigned_to": "Glenda",
-                    "completed": false
+                    "type": "textfield",
+                    "width": 100,
+                    "height": 50,
+                    "x": 0,
+                    "y": 0,
+                    "text": "hahahaha",
+                    "text_font_size": 19,
+                    "background": "#d3d3d3",
+                    "bordercolor": "#d6d6d6"
                 }
             ]
         },
         {
             "key": 2,
-            "name": "Courses to Take",
-            "owner": "Joe Student",
-            "items": [
+            "name": "i have no idea what i'm doing",
+            "user": "Edward",
+            "width": 500,
+            "height": 400,
+            "controls": [
                 {
                     "key": 0,
-                    "description": "CSE 114",
-                    "due_date": "2018-12-31",
-                    "assigned_to": "Joe",
-                    "completed": true
+                    "type": "button",
+                    "width": 100,
+                    "height": 50,
+                    "x": 0,
+                    "y": 0,
+                    "text": "wow",
+                    "text_font_size": 19,
+                    "background": "#d3d3d3",
+                    "bordercolor": "#d6d6d6"
                 },
                 {
                     "key": 1,
-                    "description": "CSE 215",
-                    "due_date": "2018-12-31",
-                    "assigned_to": "Joe",
-                    "completed": true
+                    "type": "label",
+                    "width": 100,
+                    "height": 50,
+                    "x": 0,
+                    "y": 0,
+                    "text": "label",
+                    "text_font_size": 11,
+                    "background": "#d3d3d3",
+                    "bordercolor": "#d6d6d6"
                 },
                 {
                     "key": 2,
-                    "description": "AMS 301",
-                    "due_date": "2018-12-31",
-                    "assigned_to": "Joe",
-                    "completed": true
+                    "type": "label",
+                    "width": 100,
+                    "height": 50,
+                    "x": 0,
+                    "y": 0,
+                    "text": "details",
+                    "text_font_size": 15,
+                    "background": "#d6d6d6",
+                    "bordercolor": "#000000"
+                }
+            ]
+        },
+        {
+            "key": 0,
+            "name": "Bland Sauce",
+            "user": "Edward",
+            "width": 1000,
+            "height": 500,
+            "controls": [
+                {
+                    "key": 0,
+                    "type": "container",
+                    "width": 100,
+                    "height": 50,
+                    "x": 0,
+                    "y": 0,
+                    "text": null,
+                    "text_font_size": null,
+                    "background": "#d6d6d6",
+                    "bordercolor": "#000000"
                 },
                 {
-                    "key": 3,
-                    "description": "CSE 214",
-                    "due_date": "2019-05-31",
-                    "assigned_to": "Joe",
-                    "completed": true
+                    "key": 1,
+                    "type": "button",
+                    "width": 100,
+                    "height": 50,
+                    "x": 0,
+                    "y": 0,
+                    "text": "open up",
+                    "text_font_size": 12,
+                    "background": "#d6d6d6",
+                    "bordercolor": "#000000"
                 },
                 {
-                    "key": 4,
-                    "description": "AMS 310",
-                    "due_date": "2019-05-31",
-                    "assigned_to": "Joe",
-                    "completed": true
-                },
-                {
-                    "key": 5,
-                    "description": "CSE 216",
-                    "due_date": "2019-12-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 6,
-                    "description": "CSE 220",
-                    "due_date": "2019-12-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 7,
-                    "description": "CSE 316",
-                    "due_date": "2020-05-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 8,
-                    "description": "CSE 303",
-                    "due_date": "2020-05-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 9,
-                    "description": "CSE 380",
-                    "due_date": "2020-05-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 10,
-                    "description": "CSE 373",
-                    "due_date": "2020-12-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 11,
-                    "description": "CSE 381",
-                    "due_date": "2020-12-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 12,
-                    "description": "CSE 416",
-                    "due_date": "2020-12-31",
-                    "assigned_to": "Joe",
-                    "completed": false
+                    "key": 2,
+                    "type": "label",
+                    "width": 100,
+                    "height": 50,
+                    "x": 0,
+                    "y": 0,
+                    "text": "how bout that",
+                    "text_font_size": 15,
+                    "background": "#d6d6d6",
+                    "bordercolor": "#000000"
                 }
             ]
         }

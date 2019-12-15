@@ -5,25 +5,34 @@ import { updateDate, changeNameOwner, deleteWireframe } from '../../store/action
 
 import { Modal, Button } from 'react-materialize';
 import Control from './Control'
+import Draggable from 'react-draggable'
 
 export class WireframeScreen extends Component {
     state = {
         name: '',
-        owner: '',
-        width: '500px',
-        height: '400px',
+        user: '',
+        width: 500,
+        height: 400,
+        tempWidth: 500,
+        tempHeight: 400,
+        scale: 1,
         controls: []
     }
 
     componentDidMount() {
         this.props.updateDate(this.props.match.params.id)
         if (this.props.wireframe) {
+            console.log(this.props.wireframe)
             this.setState({
                 name: this.props.wireframe.name,
-                owner: this.props.wireframe.owner,
-                controls: this.props.wireframe.controls
+                user: this.props.wireframe.user,
+                controls: this.props.wireframe.controls,
+                width: this.props.wireframe.width,
+                height: this.props.wireframe.height,
+                tempWidth: this.props.wireframe.width,
+                tempHeight: this.props.wireframe.height
             }, () => {
-                console.log(this.state.controls)
+                console.log(this.state)
             })
         }
     }
@@ -43,9 +52,35 @@ export class WireframeScreen extends Component {
         )
     }
 
+    handleChangeDimensions = (e) => {
+        const { target } = e;
+        this.setState(state => ({
+            ...state,
+            [target.id]: parseInt(target.value)
+        }))
+    }
+
     handleDeleteWireframe = (e) => {
-        this.props.deleteWireframe(this.props.wireframe.id)
-        this.props.history.push("/")
+        this.props.deleteWireframe(this.props.wireframe.id);
+        this.props.history.push("/");
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        if(this.state.tempWidth<5000 && this.state.tempWidth>0 && this.state.tempHeight<5000 && this.state.tempHeight>0)
+        this.setState(state => ({
+            ...state,
+            width: this.state.tempWidth,
+            height: this.state.tempHeight
+        }))
+    }
+
+    zoomIn = (e) => {
+        this.setState({scale: this.state.scale * 2})
+    }
+
+    zoomOut = (e) => {
+        this.setState({scale: this.state.scale * .5})
     }
 
     render() {
@@ -53,6 +88,28 @@ export class WireframeScreen extends Component {
         const auth = this.props.auth;
         const wireframe = this.props.wireframe;
         const controls = this.state.controls
+
+        const containerStyle = {
+            border: '1px solid',
+            height: '500px',
+        }
+
+        const wireframeContainerStyle = {
+            border: '1px solid',
+            height: '500px',
+            overflow: 'scroll'
+        }
+
+        const wireframeStyle = {
+            border: '1px solid',
+            position: 'relative',
+            transform: 'scale(' + this.state.scale + ')',
+            transformOrigin: 'center',
+            backgroundColor: 'none',
+            width: this.state.width,
+            height: this.state.height
+        }
+
         // console.log(controls)
         // console.log(wireframe)
         if (!auth.uid) return <Redirect to='/logIn' />
@@ -82,10 +139,28 @@ export class WireframeScreen extends Component {
                     <label htmlFor="email">Name</label>
                     <input className="active" type="text" name="name" id="name" onChange={this.handleChange} defaultValue={wireframe.name} />
                 </div>
-                <div>
-                    <label htmlFor="password">Owner</label>
-                    <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} defaultValue={wireframe.owner} />
+                <div className="row">
+                    <form onSubmit={this.handleSubmit} className="col s4">
+                        <div className='col s4'>
+                            <label htmlFor="password">Width</label>
+                            <input className="active" type="number" id='tempWidth' onChange={this.handleChangeDimensions} defaultValue={this.state.width} />
+                        </div>
+                        <div className='col s4'>
+                            <label htmlFor="password">Height</label>
+                            <input className="active" type="number" id='tempHeight' onChange={this.handleChangeDimensions} defaultValue={this.state.height} />
+                        </div>
+                        <div className="col s3 input-field">
+                            <button type="submit" className="btn blue lighten-2 z-depth-0">Submit</button>
+                        </div>
+                    </form>
+                    <div className="blue lighten-2 waves-effect waves-light btn-floating" onClick={this.zoomIn}>
+                        <i className="material-icons">add</i>
+                    </div>
+                    <div className="blue lighten-2 waves-effect waves-light btn-floating" onClick={this.zoomOut}>
+                        <i className="material-icons">remove</i>
+                    </div>
                 </div>
+
                 <div className="row">
                     <div className="col s3 add_controls" style={containerStyle}>
                         Add controls
@@ -94,11 +169,10 @@ export class WireframeScreen extends Component {
                         <ul><Button>Button</Button></ul>
                         <ul><Button>Textfield</Button></ul>
                     </div>
-                    <div className="col s6 controls z-depth-1" style={containerStyle}>
+                    <div className="col s6 controls" style={wireframeContainerStyle}>
                         <div className="container" style={wireframeStyle}>
-                            hello
                             {controls && controls.map(control => (
-                                    <Control control={control} key={control.key} />
+                                <Control control={control} key={control.key} />
                             ))}
                         </div>
                     </div>
@@ -109,28 +183,12 @@ export class WireframeScreen extends Component {
     }
 }
 
-const containerStyle = {
-    border: '1px solid',
-    height: '500px',
-    textAlign: 'center',
-    alignItems: 'center',
-}
 
-const wireframeStyle = {
-    border: '1px solid',
-    position: 'relative',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    backgroundColor: 'powderblue',
-    width: '500px',
-    height: '400px'
-}
 
 const mapStateToProps = (state, ownProps) => {
     const { id } = ownProps.match.params;
     const { wireframes } = state.firestore.data;
     const wireframe = wireframes ? wireframes[id] : null;
-    console.log(state)
     if (wireframe)
         wireframe.id = id;
 

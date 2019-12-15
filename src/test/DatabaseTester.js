@@ -23,8 +23,10 @@ class DatabaseTester extends React.Component {
         todoJson.todoLists.forEach(todoListJson => {
             fireStore.collection('wireframes').add({
                     name: todoListJson.name,
-                    owner: todoListJson.owner,
-                    controls: todoListJson.items,
+                    user: todoListJson.user,
+                    width: todoListJson.width,
+                    height: todoListJson.height,
+                    controls: todoListJson.controls,
                     timeStamp: new Date()
                 }).then(() => {
                     console.log("DATABASE RESET");
