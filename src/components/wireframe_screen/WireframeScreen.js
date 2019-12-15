@@ -67,20 +67,46 @@ export class WireframeScreen extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        if(this.state.tempWidth<5000 && this.state.tempWidth>0 && this.state.tempHeight<5000 && this.state.tempHeight>0)
-        this.setState(state => ({
-            ...state,
-            width: this.state.tempWidth,
-            height: this.state.tempHeight
-        }))
+        if (this.state.tempWidth < 5000 && this.state.tempWidth > 0 && this.state.tempHeight < 5000 && this.state.tempHeight > 0)
+            this.setState(state => ({
+                ...state,
+                width: this.state.tempWidth,
+                height: this.state.tempHeight
+            }))
     }
 
     zoomIn = (e) => {
-        this.setState({scale: this.state.scale * 2})
+        this.setState({ scale: this.state.scale * 2 })
     }
 
     zoomOut = (e) => {
-        this.setState({scale: this.state.scale * .5})
+        this.setState({ scale: this.state.scale * .5 })
+    }
+
+    rekey = (array) => {
+        for (let i=0; i<array.length; i++){
+            array[i].key=i;
+        }
+    }
+
+    addControl = (e) => {
+        console.log(this.state, e.target)
+        const controls = this.state.controls;
+        const newContainer = {
+            background: "#d6d6d6",
+            bordercolor: "#000000",
+            height: 50,
+            key: 0,
+            text: "new",
+            text_font_size: 12,
+            type: e.target.id,
+            width: 100,
+            x: 0,
+            y: 0,
+        }
+        controls.push(newContainer);
+        this.rekey(controls)
+        this.setState({controls: controls})
     }
 
     render() {
@@ -164,10 +190,10 @@ export class WireframeScreen extends Component {
                 <div className="row">
                     <div className="col s3 add_controls" style={containerStyle}>
                         Add controls
-                        <ul><Button>Container</Button></ul>
-                        <ul><Button>Label</Button></ul>
-                        <ul><Button>Button</Button></ul>
-                        <ul><Button>Textfield</Button></ul>
+                        <ul><Button id="container" onClick={this.addControl}>Container</Button></ul>
+                        <ul><Button id="label" onClick={this.addControl}>Label</Button></ul>
+                        <ul><Button id="button" onClick={this.addControl}>Button</Button></ul>
+                        <ul><Button id="textfield" onClick={this.addControl}>Textfield</Button></ul>
                     </div>
                     <div className="col s6 controls" style={wireframeContainerStyle}>
                         <div className="container" style={wireframeStyle}>
