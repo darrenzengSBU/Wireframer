@@ -11,6 +11,7 @@ export class WireframeScreen extends Component {
     constructor(props) {
         super(props);
         this.escFunction = this.escFunction.bind(this)
+        this.changeProperties = this.changeProperties.bind(this)
     }
 
     state = {
@@ -25,11 +26,14 @@ export class WireframeScreen extends Component {
         controls: []
     }
 
+    // componentDidUpdate() {
+    //     console.log(this.state)
+    // }
 
     componentDidMount() {
         this.props.updateDate(this.props.match.params.id)
         if (this.props.wireframe) {
-            console.log(this.props.wireframe)
+            //console.log(this.props.wireframe)
             this.setState({
                 name: this.props.wireframe.name,
                 user: this.props.wireframe.user,
@@ -65,7 +69,7 @@ export class WireframeScreen extends Component {
                 }
                 this.setState({
                     controls: controls,
-                    selectControl: controls.length-1
+                    selectedControl: controls.length-1
                 })
             }
         }
@@ -161,13 +165,28 @@ export class WireframeScreen extends Component {
     }
 
     selectControl(index) {
+        this.deselectControl()
         this.setState({ selectedControl: index })
-        console.log('selected')
+        console.log('selected', index)
     }
 
     deselectControl() {
         this.setState({ selectedControl: -1 })
         console.log('deselected')
+    }
+
+    changeProperties(state) {
+        var controls = this.state.controls
+        var control = controls[this.state.selectedControl]
+        control = {
+            ...control,
+            background: state.background,
+            borderColor: state.borderColor,
+            fontSize: state.fontSize,
+            text: state.text
+        }
+        controls[this.state.selectedControl] = control
+        this.setState({controls:controls})
     }
 
     render() {
@@ -176,7 +195,7 @@ export class WireframeScreen extends Component {
         const wireframe = this.props.wireframe;
         const controls = this.state.controls;
         const control = controls[this.state.selectedControl]
-
+        console.log(control)
         const containerStyle = {
             border: '1px solid',
             height: '600px',
@@ -268,7 +287,7 @@ export class WireframeScreen extends Component {
                         </div>
                     </div>
                     <div className="col s3 properties" style={containerStyle}>
-                        <ControlProperties control={control} />
+                        <ControlProperties changeProperties={this.changeProperties} control={control} />
                     </div>
                 </div>
             </div>

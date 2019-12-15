@@ -11,8 +11,8 @@ import RegisterScreen from './components/auth/RegisterScreen'
 import DatabaseTester from './test/DatabaseTester'
 
 function App(props) {
-  const { auth } = props
-  console.log(auth)
+  //const { auth } = props
+  //console.log(auth)
   if (true) {
     return (
       <BrowserRouter>

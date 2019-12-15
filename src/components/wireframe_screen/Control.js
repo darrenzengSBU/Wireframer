@@ -15,7 +15,7 @@ export class Control extends Component {
 
     render() {
         const { control } = this.props
-        // console.log(this.props)
+        //console.log(this.props)
         if (control.type === 'container') {
             return (
                 <Rnd
@@ -35,7 +35,7 @@ export class Control extends Component {
                         });
                     }}
                 >
-                    <div className="container" style={containerStyle}>container</div>
+                    <div className="container" style={containerStyle}></div>
                 </Rnd>
             )
         }
@@ -59,7 +59,7 @@ export class Control extends Component {
                     }}
                 >
                     <div className="container" style={containerStyle}>
-                        <label style={controlStyle}>label</label>
+                        <label style={controlStyle}>{control.text}</label>
                     </div>
                 </Rnd>
             )
@@ -83,7 +83,7 @@ export class Control extends Component {
                         });
                     }}
                 >
-                    <button style={controlStyle}>button</button>
+                    <button style={controlStyle}>{control.text}</button>
                 </Rnd>
             )
         }
@@ -106,8 +106,8 @@ export class Control extends Component {
                         });
                     }}
                 >
-                    <div className="input-field">
-                        <input type="text" style={controlStyle} onChange={this.handleChange} defaultValue="textfield" />
+                    <div className="inpdut-field">
+                        <input type="text" style={controlStyle} onChange={this.handleChange} defaultValue={control.text} />
                     </div>
                 </Rnd>
             )
@@ -142,7 +142,8 @@ const containerStyle = {
     alignItems: 'center',
     height: '100%',
     width: '100%',
-    pointerEvents: 'none'
+    pointerEvents: 'none',
+    color: 'grey'
 }
 
 // const rndStyle = {
