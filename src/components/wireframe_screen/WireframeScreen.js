@@ -6,9 +6,13 @@ import { updateDate, changeNameOwner, deleteWireframe } from '../../store/action
 import { Modal, Button } from 'react-materialize';
 import Control from './Control'
 import ControlProperties from './ControlProperties'
-import keydown from 'react-keydown'
 
 export class WireframeScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.escFunction = this.escFunction.bind(this)
+    }
+
     state = {
         name: '',
         user: '',
@@ -20,6 +24,7 @@ export class WireframeScreen extends Component {
         selectedControl: -1,
         controls: []
     }
+
 
     componentDidMount() {
         this.props.updateDate(this.props.match.params.id)
@@ -34,28 +39,44 @@ export class WireframeScreen extends Component {
                 tempWidth: this.props.wireframe.width,
                 tempHeight: this.props.wireframe.height
             }, () => {
-                //console.log(this.state)
+                document.addEventListener("keydown", this.escFunction, false);
             })
         }
-        document.addEventListener("keydown", this.escFunction.bind(this), false);
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         document.removeEventListener("keydown", this.escFunction, false);
-      }
+    }
 
     escFunction(event) {
-        if(event.keyCode === 27) {
-           console.log('esc pressed')
-          }
-        if(event.keyCode === 46 ) {
+        if (event.keyCode === 68) {
+            console.log('ctrl d pressed', event, this.state)
+            if (this.state.selectedControl) {
+                const controls = this.state.controls
+                const index = this.state.selectedControl
+                if (index >= 0) {
+                    const duplicate = controls[index]
+                    const control = JSON.parse(JSON.stringify(duplicate));
+                    control.key = controls.length
+                    control.x += 100
+                    control.y += 100
+                    controls[controls.length] = control
+                    this.rekey(controls)
+                }
+                this.setState({
+                    controls: controls,
+                    selectControl: controls.length-1
+                })
+            }
+        }
+        if (event.keyCode === 46) {
             console.log('delete pressed', this.state, this.state.selectedControl)
-            if(this.state.selectedControl) {
+            if (this.state.selectedControl) {
                 const controls = this.state.controls
                 const index = this.state.selectedControl
                 //console.log(controls, index)
-                if(index>=0) {
-                    controls.splice(index,1)
+                if (index >= 0) {
+                    controls.splice(index, 1)
                     this.rekey(controls)
                     //console.log(controls)
                 }

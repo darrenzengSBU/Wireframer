@@ -138,7 +138,6 @@ export class Control extends Component {
 
 const containerStyle = {
     border: '1px solid',
-    height: '100px',
     textAlign: 'center',
     alignItems: 'center',
     height: '100%',
@@ -146,10 +145,10 @@ const containerStyle = {
     pointerEvents: 'none'
 }
 
-const rndStyle = {
-    display: 'flex',
-    flexDirection: 'column'
-}
+// const rndStyle = {
+//     display: 'flex',
+//     flexDirection: 'column'
+// }
 
 const controlStyle = {
     height: '100%',
