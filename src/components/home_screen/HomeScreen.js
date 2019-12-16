@@ -14,6 +14,13 @@ class HomeScreen extends Component {
 
     handleNewWireframe = (e) => {
         this.props.createWireframe(this.state)
+        this.goNewWireframe()
+    }
+
+    goNewWireframe = () => {
+        setTimeout(() => {
+            this.props.history.push("/wireframe/" + this.props.wireframes[0].id)
+        }, 10);
     }
 
     render() {
@@ -59,6 +66,6 @@ const mapDispatchToProps = (dispatch) => {
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
-        { collection: 'wireframes' }
+        { collection: 'wireframes',  orderBy: ['timeStamp', 'desc']}
     ])
 )(HomeScreen)

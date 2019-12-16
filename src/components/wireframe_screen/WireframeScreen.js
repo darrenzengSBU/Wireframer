@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { updateDate, changeNameOwner, deleteWireframe, saveWireframe } from '../../store/actions/wireframeActions'
 
@@ -71,7 +71,7 @@ export class WireframeScreen extends Component {
                 }
                 this.setState({
                     controls: controls,
-                    selectedControl: controls.length-1
+                    selectedControl: controls.length - 1
                 })
             }
         }
@@ -189,7 +189,7 @@ export class WireframeScreen extends Component {
             text: state.text
         }
         controls[this.state.selectedControl] = control
-        this.setState({controls:controls})
+        this.setState({ controls: controls })
     }
 
     changePosition(x, y) {
@@ -201,7 +201,7 @@ export class WireframeScreen extends Component {
             y: y
         }
         controls[this.state.selectedControl] = control
-        this.setState({controls:controls})
+        this.setState({ controls: controls })
     }
 
     changeSize(width, height) {
@@ -213,7 +213,7 @@ export class WireframeScreen extends Component {
             height: height
         }
         controls[this.state.selectedControl] = control
-        this.setState({controls:controls})
+        this.setState({ controls: controls })
     }
 
     saveWork() {
@@ -302,6 +302,23 @@ export class WireframeScreen extends Component {
                     <div className="blue right-align lighten-2 waves-effect waves-light btn-floating" onClick={this.saveWork.bind(this)}>
                         <i className="material-icons">save</i>
                     </div>
+                    <a className="blue lighten-2 waves-effect waves-light btn-floating modal-trigger" href="#modal2">
+                        <i className="material-icons">exit_to_app</i>
+                    </a>
+                    <Modal id="modal2" className="modal">
+                        <div className="modal-content">
+                            <h4>Save Work?</h4>
+                        </div>
+                        <div className="grid right-align">
+                            <Link to="/">
+                                <Button onClick={this.saveWork.bind(this)}>yes</Button>
+                            </Link>
+                            <React.Fragment> </React.Fragment>
+                            <Link to="/">
+                                <Button className="modal-close">no</Button>
+                            </Link>
+                        </div>
+                    </Modal>
                 </div>
 
                 <div className="row">
@@ -318,7 +335,6 @@ export class WireframeScreen extends Component {
                                 <div onClick={e => e.stopPropagation()} key={control.key}>
                                     <Control control={control} changePosition={this.changePosition} changeSize={this.changeSize} onSelect={(index) => this.selectControl(index)} index={control.key} />
                                 </div>
-
                             ))}
                         </div>
                     </div>
