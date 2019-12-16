@@ -12,6 +12,8 @@ export class WireframeScreen extends Component {
         super(props);
         this.escFunction = this.escFunction.bind(this)
         this.changeProperties = this.changeProperties.bind(this)
+        this.changePosition = this.changePosition.bind(this)
+        this.changeSize = this.changeSize.bind(this)
     }
 
     state = {
@@ -26,9 +28,9 @@ export class WireframeScreen extends Component {
         controls: []
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.state)
-    // }
+    componentDidUpdate() {
+        console.log(this.state)
+    }
 
     componentDidMount() {
         this.props.updateDate(this.props.match.params.id)
@@ -148,12 +150,13 @@ export class WireframeScreen extends Component {
         console.log(this.state, e.target)
         const controls = this.state.controls;
         const newContainer = {
-            background: "#d6d6d6",
-            bordercolor: "#000000",
+            text: "new",
+            background: null,
+            borderColor: "#000000",
             height: 50,
             key: 0,
             text: "new",
-            text_font_size: 12,
+            fontSize: 12,
             type: e.target.id,
             width: 100,
             x: 0,
@@ -189,13 +192,37 @@ export class WireframeScreen extends Component {
         this.setState({controls:controls})
     }
 
+    changePosition(x, y) {
+        var controls = this.state.controls
+        var control = controls[this.state.selectedControl]
+        control = {
+            ...control,
+            x: x,
+            y: y
+        }
+        controls[this.state.selectedControl] = control
+        this.setState({controls:controls})
+    }
+
+    changeSize(width, height) {
+        var controls = this.state.controls
+        var control = controls[this.state.selectedControl]
+        control = {
+            ...control,
+            width: width,
+            height: height
+        }
+        controls[this.state.selectedControl] = control
+        this.setState({controls:controls})
+    }
+
     render() {
         // const { auth, wireframe } = this.props;
         const auth = this.props.auth;
         const wireframe = this.props.wireframe;
         const controls = this.state.controls;
         const control = controls[this.state.selectedControl]
-        console.log(control)
+        //console.log(control)
         const containerStyle = {
             border: '1px solid',
             height: '600px',
@@ -210,7 +237,8 @@ export class WireframeScreen extends Component {
         const wireframeStyle = {
             border: '1px solid',
             position: 'relative',
-            transform: 'scale(' + this.state.scale + ')',
+            top: '50%',
+            transform: 'translateY(-50%) scale(' + this.state.scale + ')',
             transformOrigin: 'center',
             backgroundColor: 'none',
             width: this.state.width,
@@ -280,7 +308,7 @@ export class WireframeScreen extends Component {
                         <div className="container" onClick={this.deselectControl.bind(this)} style={wireframeStyle}>
                             {controls && controls.map(control => (
                                 <div onClick={e => e.stopPropagation()} key={control.key}>
-                                    <Control control={control} onSelect={(index) => this.selectControl(index)} index={control.key} />
+                                    <Control control={control} changePosition={this.changePosition} changeSize={this.changeSize} onSelect={(index) => this.selectControl(index)} index={control.key} />
                                 </div>
 
                             ))}
