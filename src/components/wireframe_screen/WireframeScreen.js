@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { updateDate, changeNameOwner, deleteWireframe } from '../../store/actions/wireframeActions'
+import { updateDate, changeNameOwner, deleteWireframe, saveWireframe } from '../../store/actions/wireframeActions'
 
 import { Modal, Button } from 'react-materialize';
 import Control from './Control'
@@ -216,6 +216,11 @@ export class WireframeScreen extends Component {
         this.setState({controls:controls})
     }
 
+    saveWork() {
+        console.log(this.props.wireframe.id, this.state)
+        this.props.saveWireframe(this.props.wireframe.id, this.state)
+    }
+
     render() {
         // const { auth, wireframe } = this.props;
         const auth = this.props.auth;
@@ -278,11 +283,11 @@ export class WireframeScreen extends Component {
                     <form onSubmit={this.handleSubmit} className="col s4">
                         <div className='col s4'>
                             <label htmlFor="password">Width</label>
-                            <input className="active" type="number" id='tempWidth' onChange={this.handleChangeDimensions} defaultValue={this.state.width} />
+                            <input className="active" type="number" id='tempWidth' onChange={this.handleChangeDimensions} defaultValue={wireframe.width} />
                         </div>
                         <div className='col s4'>
                             <label htmlFor="password">Height</label>
-                            <input className="active" type="number" id='tempHeight' onChange={this.handleChangeDimensions} defaultValue={this.state.height} />
+                            <input className="active" type="number" id='tempHeight' onChange={this.handleChangeDimensions} defaultValue={wireframe.height} />
                         </div>
                         <div className="col s3 input-field">
                             <button type="submit" className="btn blue lighten-2 z-depth-0">Submit</button>
@@ -293,6 +298,9 @@ export class WireframeScreen extends Component {
                     </div>
                     <div className="blue lighten-2 waves-effect waves-light btn-floating" onClick={this.zoomOut}>
                         <i className="material-icons">remove</i>
+                    </div>
+                    <div className="blue right-align lighten-2 waves-effect waves-light btn-floating" onClick={this.saveWork.bind(this)}>
+                        <i className="material-icons">save</i>
                     </div>
                 </div>
 
@@ -342,8 +350,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         updateDate: (wireframeId) => dispatch(updateDate(wireframeId)),
         changeNameOwner: (wireframeId, state, targetId) => dispatch(changeNameOwner(wireframeId, state, targetId)),
-        // addItem: (listId, state) => dispatch(addItem(listId, state)),
         deleteWireframe: (wireframeId) => dispatch(deleteWireframe(wireframeId)),
+        saveWireframe: (wireframeId, state) => dispatch(saveWireframe(wireframeId, state))
     }
 }
 

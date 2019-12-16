@@ -38,3 +38,17 @@ export const deleteWireframe = (wireframeId) => {
         firestore.collection('wireframes').doc(wireframeId).delete();
     }
 }
+
+export const saveWireframe = (wireframeId, state) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        console.log(wireframeId, state)
+        console.log(state.height)
+        const firestore = getFirestore();
+        firestore.collection('wireframes').doc(wireframeId).update({
+            controls: state.controls,
+            height: state.height,
+            width: state.width,
+            name: state.name
+        })
+    }
+}
